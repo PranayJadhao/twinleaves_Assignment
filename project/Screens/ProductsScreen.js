@@ -31,7 +31,6 @@ const ProductsScreen = ({ navigation }) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setProducts(data);
       })
       .catch((error) => {
@@ -40,45 +39,40 @@ const ProductsScreen = ({ navigation }) => {
   };
 
   const addToCart = (item) => {
-    // Function to add the item to cart
     setCartItems([...cartItems, item]);
-      Alert.alert("Product Added", `${item.title} added to cart.`);
-     
+    Alert.alert("Product Added", `${item.title} added to cart.`);
   };
-
-  const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <Text style={styles.title}>
-        {item.title.length > 20
-          ? `${item.title.substring(0, 20)}...`
-          : item.title}
-      </Text>
-      <Pressable
-        style={styles.imageContainer}
-        onPress={() => handleProductPress(item)}
-      >
-        <Image
-          source={{ uri: item.image }}
-          style={styles.image}
-          resizeMode="cover"
-        />
-      </Pressable>
-      <Pressable style={styles.addToCartButton} onPress={() => addToCart(item)}>
-        <Text style={styles.addToCartButtonText}>Add to Cart</Text>
-      </Pressable>
-    </View>
-  );
 
   const handleProductPress = (item) => {
     navigation.navigate("ProductDetails", { product: item });
   };
 
+  const renderItem = ({ item }) => (
+    <Pressable onPress={() => handleProductPress(item)}>
+      <View style={styles.itemContainer}>
+        <Image
+          source={{ uri: item.image }}
+          style={styles.image}
+          resizeMode="cover"
+        />
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.price}>${item.price}</Text>
+        <Pressable
+          style={styles.addToCartButton}
+          onPress={() => addToCart(item)}
+        >
+          <Text style={styles.addToCartButtonText}>Add to Cart</Text>
+        </Pressable>
+      </View>
+    </Pressable>
+  );
+
   return (
     <View style={styles.container}>
       <FlatList
         data={products}
-        numColumns={3}
-        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+        keyExtractor={(item, index) => `${item.id}_${index}`}
         renderItem={renderItem}
         contentContainerStyle={styles.flatlistContent}
       />
@@ -86,52 +80,49 @@ const ProductsScreen = ({ navigation }) => {
   );
 };
 
-const itemWidth = (windowWidth - 40) / 3; // Adjust padding if necessary
+const itemWidth = (windowWidth - 20) / 2; // Adjust padding if necessary
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 10,
+    backgroundColor: "#f0f0f0",
+    padding: 10,
   },
   flatlistContent: {
-    alignItems: "center",
     paddingBottom: 10,
   },
   itemContainer: {
     width: itemWidth,
-    margin: 5,
     backgroundColor: "#fff",
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 10,
-    alignItems: "center",
+    margin: 5,
     elevation: 3,
   },
   title: {
     fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 5,
+  },
+  price: {
+    fontSize: 14,
+    color: "#888",
     marginBottom: 5,
   },
-  imageContainer: {
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   image: {
-    width: itemWidth - 20,
-    height: itemWidth - 20,
-    borderRadius: 5,
+    width: "100%",
+    height: 150,
+    borderRadius: 10,
   },
   addToCartButton: {
-    marginTop: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 5,
     backgroundColor: "#4CAF50",
+    borderRadius: 5,
+    paddingVertical: 8,
+    alignItems: "center",
+    marginTop: 5,
   },
   addToCartButtonText: {
     color: "#fff",
-    fontSize: 14,
     fontWeight: "bold",
   },
 });

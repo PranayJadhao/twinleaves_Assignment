@@ -13,13 +13,11 @@ const ProductDetailsScreen = ({ route }) => {
       />
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{product.title}</Text>
-        <Text style={styles.title}>{product.category}</Text>
-        <Text style={styles.description}>
-          Rating:{product.rating.rate}/5 
-        </Text>
-        <Text style={styles.description}>
-        count:{product.rating.count}
-        </Text>
+        <Text style={styles.category}>{product.category}</Text>
+        <View style={styles.ratingContainer}>
+          <Text style={styles.ratingText}>Rating: {product.rating.rate}/5</Text>
+          <Text style={styles.ratingText}>Count: {product.rating.count}</Text>
+        </View>
         <Text style={styles.price}>Price: ${product.price}</Text>
         <Text style={styles.description}>{product.description}</Text>
       </View>
@@ -43,15 +41,31 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "#333",
+  },
+  category: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: "#666",
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    marginBottom: 10,
+  },
+  ratingText: {
+    marginRight: 10,
+    fontSize: 16,
+    color: "#888",
   },
   price: {
-    fontSize: 18,
+    fontSize: 20,
     color: "#4CAF50",
     marginBottom: 10,
   },
   description: {
     fontSize: 16,
     marginBottom: 20,
+    color: "#555",
   },
 });
 

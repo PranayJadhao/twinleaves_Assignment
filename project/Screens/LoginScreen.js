@@ -1,13 +1,86 @@
-import {View,Text, TouchableOpacity} from "react-native"
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  StyleSheet,
+} from "react-native";
 
-const LoginScreen = () => {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <TouchableOpacity style={{backgroundColor:'lightblue' }}>
-          <Text style={{padding:10}}>Login Button</Text>
-        </TouchableOpacity>
+const LoginScreen = ({ navigation }) => {
+  const handleLogin = () => {
+    // Perform login logic here
+    // For simplicity, let's assume login is successful
+    navigation.replace("Products"); // Redirect to the Products screen after successful login
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.logo}>Fake Store</Text>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Email"
+          placeholderTextColor="#003f5c"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
       </View>
-    );
-}
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Password"
+          placeholderTextColor="#003f5c"
+          secureTextEntry={true}
+        />
+      </View>
+      <TouchableOpacity onPress={handleLogin} style={styles.loginBtn}>
+        <Text style={styles.loginText}>LOGIN</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logo: {
+    fontWeight: "bold",
+    fontSize: 50,
+    color: "#5a189a",
+    marginBottom: 40,
+  },
+  inputView: {
+    width: "80%",
+    backgroundColor: "#f2f2f2",
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: "center",
+    padding: 20,
+  },
+  inputText: {
+    height: 50,
+    color: "black",
+  },
+  loginBtn: {
+    width: "80%",
+    backgroundColor: "#5a189a",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    marginBottom: 10,
+  },
+  loginText: {
+    color: "white",
+  },
+});
 
 export default LoginScreen;
