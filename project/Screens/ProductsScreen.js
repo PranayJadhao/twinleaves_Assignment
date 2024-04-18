@@ -8,6 +8,7 @@ import {
   Image,
   StyleSheet,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
@@ -15,6 +16,7 @@ const windowWidth = Dimensions.get("window").width;
 const ProductsScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProducts();
@@ -32,9 +34,11 @@ const ProductsScreen = ({ navigation }) => {
       })
       .then((data) => {
         setProducts(data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
+        setLoading(false);
       });
   };
 
@@ -69,24 +73,35 @@ const ProductsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={products}
-        numColumns={2}
-        keyExtractor={(item, index) => `${item.id}_${index}`}
-        renderItem={renderItem}
-        contentContainerStyle={styles.flatlistContent}
-      />
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#4CAF50" />
+          <Text>Loading...</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={products}
+          numColumns={2}
+          keyExtractor={(item, index) => `${item.id}_${index}`}
+          renderItem={renderItem}
+          contentContainerStyle={styles.flatlistContent}
+        />
+      )}
     </View>
   );
 };
 
-const itemWidth = (windowWidth - 20) / 2; // Adjust padding if necessary
-
+const itemWidth = (windowWidth - 20) / 2;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f0f0f0",
     padding: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   flatlistContent: {
     paddingBottom: 10,

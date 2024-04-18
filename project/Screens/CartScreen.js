@@ -19,7 +19,6 @@ const CartScreen = ({ navigation }) => {
   }, []);
 
   const fetchCartItems = async () => {
-    // Simulate fetching data with a delay
     setTimeout(() => {
       const fetchedItems = [
         {
@@ -46,12 +45,12 @@ const CartScreen = ({ navigation }) => {
       ];
       setCartItems(fetchedItems);
       setLoading(false);
-    }, 2000); // Simulate a delay of 2 seconds
+    }, 2000);
   };
 
   const checkout = () => {
-    // Checkout logic
     Alert.alert("Success", "Checkout completed!");
+    navigation.replace("Products");
   };
 
   if (loading) {

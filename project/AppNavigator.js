@@ -17,48 +17,46 @@ const AppNavigator = () => {
   const [cartItems, setCartItems] = useState([]);
 
   return (
-  
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#5a189a",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
-      >
-        <Stack.Screen name="loginscreen" component={LoginScreen} />
-        <Stack.Screen
-          name="Products"
-          component={ProductsScreen}
-          options={({ navigation }) => ({
-            headerRight: () => (
-              <View style={styles.headerRightContainer}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Cart", { cartItems })}
-                  style={styles.headerRightButton}
-                >
-                  <FontAwesome name="shopping-cart" size={24} color="white" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("BarcodeScanner")}
-                  style={styles.headerRightButton}
-                >
-                  <FontAwesome name="barcode" size={24} color="white" />
-                </TouchableOpacity>
-              </View>
-            ),
-          })}
-        />
-        <Stack.Screen name="Cart">
-          {(props) => <CartScreen {...props} cartItems={cartItems} />}
-        </Stack.Screen>
-        <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
-        <Stack.Screen name="BarcodeScanner" component={BarcodeScannerScreen} />
-      </Stack.Navigator>
-    
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#5a189a",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <Stack.Screen name="loginscreen" component={LoginScreen} />
+      <Stack.Screen
+        name="Products"
+        component={ProductsScreen}
+        options={({ navigation }) => ({
+          headerRight: () => (
+            <View style={styles.headerRightContainer}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Cart", { cartItems })}
+                style={styles.headerRightButton}
+              >
+                <FontAwesome name="shopping-cart" size={24} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("BarcodeScanner")}
+                style={styles.headerRightButton}
+              >
+                <FontAwesome name="barcode" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+          ),
+        })}
+      />
+      <Stack.Screen name="Cart">
+        {(props) => <CartScreen {...props} cartItems={cartItems} />}
+      </Stack.Screen>
+      <Stack.Screen name="ProductDetails" component={ProductDetailsScreen} />
+      <Stack.Screen name="BarcodeScanner" component={BarcodeScannerScreen} />
+    </Stack.Navigator>
   );
 };
 

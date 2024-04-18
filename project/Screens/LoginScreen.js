@@ -9,9 +9,7 @@ import {
 
 const LoginScreen = ({ navigation }) => {
   const handleLogin = () => {
-    // Perform login logic here
-    // For simplicity, let's assume login is successful
-    navigation.replace("Products"); // Redirect to the Products screen after successful login
+    navigation.replace("Products");
   };
 
   return (

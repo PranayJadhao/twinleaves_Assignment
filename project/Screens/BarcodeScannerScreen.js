@@ -15,7 +15,7 @@ const BarcodeScannerScreen = ({ navigation }) => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    // Handle barcode scan data
+
     navigation.navigate("ProductDetails", {
       product: {
         name: "Sample Product",
